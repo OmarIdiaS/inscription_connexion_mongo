@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Inscription from './Inscription'
+import Inscription from './Components/Inscription'
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom"
 import userNonVerifies from './Components/UserNonVerifies';
 import userVerifies from './Components/UserVerifies'

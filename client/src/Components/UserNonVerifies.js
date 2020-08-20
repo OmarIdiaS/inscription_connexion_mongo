@@ -9,12 +9,13 @@ class UserNonVerifies extends Component{
     }
 
     
-    validerUserBD = async(pseudo, email, mdp, admin) => {
+    validerUserBD = async(pseudo, email, mdp, admin, imgg) => {
         await axios.post("http://localhost:8080/users",{
             pseudo  : pseudo, 
             email   : email, 
             mdp     : mdp, 
             admin   : admin,
+            imageURL: imgg
         })
     }
 
@@ -26,22 +27,22 @@ class UserNonVerifies extends Component{
         this.setState({varChange : true})
     }
 
-    validerUser = async(id, pseudo, email, mdp) => {
+    validerUser = async(id, pseudo, email, mdp, imgg) => {
         console.log("Bonjour")
         await axios.delete("http://localhost:8080/usersNonVerifies/" + id)
-        this.validerUserBD(pseudo, email, mdp, false)
+        this.validerUserBD(pseudo, email, mdp, false, imgg)
     }
 
-    validerUserAdmin = async(id, pseudo, email, mdp) => {
+    validerUserAdmin = async(id, pseudo, email, mdp, imgg) => {
         console.log("Bonjour")
         await axios.delete("http://localhost:8080/usersNonVerifies/" + id)
-        this.validerUserBD(pseudo, email, mdp, true)
+        this.validerUserBD(pseudo, email, mdp, true, imgg)
     }
     componentDidMount(){
         this.recupererUserNonVerifies()
     }
 
-    
+
 
     render(){
         return (<div>
@@ -56,10 +57,12 @@ class UserNonVerifies extends Component{
             <tbody>
                 {this.state.usersNonVerifies.map(opt=> 
                 <div>
+                    
+                    <td><img src={require("../uploads/"+ opt.imageURL )} style={{width: "50px"}} /></td>
                     <td>{opt.pseudo}</td>
                     <td>{opt.email}</td>
-                    <td><button onClick={() => this.validerUser(opt._id, opt.pseudo, opt.email, opt.mdp)}>Valider</button></td>
-                    <td><button onClick={() => this.validerUserAdmin(opt._id, opt.pseudo, opt.email, opt.mdp)}>Valider comme Admin</button></td>
+                    <td><button onClick={() => this.validerUser(opt._id, opt.pseudo, opt.email, opt.mdp, opt.imageURL)}>Valider</button></td>
+                    <td><button onClick={() => this.validerUserAdmin(opt._id, opt.pseudo, opt.email, opt.mdp, opt.imageURL)}>Valider comme Admin</button></td>
                 </div>)}
             </tbody>
         </table>

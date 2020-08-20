@@ -33,6 +33,7 @@ class UserVerifies extends Component{
             <tbody>
                 {this.state.users.map(opt=> 
                 <div>
+                    <td><img src={require("../uploads/"+ opt.imageURL )} style={{width: "50px"}} /></td>
                     <td>{opt.pseudo}</td>
                     <td>{opt.email}</td>
                     {opt.admin == true ? (<td>Admin</td>) : (<td>Conseiller</td>)}
