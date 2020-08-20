@@ -1,0 +1,72 @@
+import React, {Component} from 'react'
+import axios from 'axios'
+
+class UserNonVerifies extends Component{
+
+    state = {
+        usersNonVerifies: [],
+        varChange : false,
+    }
+
+    
+    validerUserBD = async(pseudo, email, mdp, admin) => {
+        await axios.post("http://localhost:8080/users",{
+            pseudo  : pseudo, 
+            email   : email, 
+            mdp     : mdp, 
+            admin   : admin,
+        })
+    }
+
+
+    recupererUserNonVerifies = async() => {
+        const noms = await axios.get("http://localhost:8080/usersNonVerifies")
+        console.log(noms.data)
+        this.setState({usersNonVerifies : noms.data})
+        this.setState({varChange : true})
+    }
+
+    validerUser = async(id, pseudo, email, mdp) => {
+        console.log("Bonjour")
+        await axios.delete("http://localhost:8080/usersNonVerifies/" + id)
+        this.validerUserBD(pseudo, email, mdp, false)
+    }
+
+    validerUserAdmin = async(id, pseudo, email, mdp) => {
+        console.log("Bonjour")
+        await axios.delete("http://localhost:8080/usersNonVerifies/" + id)
+        this.validerUserBD(pseudo, email, mdp, true)
+    }
+    componentDidMount(){
+        this.recupererUserNonVerifies()
+    }
+
+    
+
+    render(){
+        return (<div>
+        <h1>Utilisateur Non vérifiées</h1>
+        
+        <table class="table">
+            <thead class="thead-dark">
+                <th scope="col">Pseudo</th>
+                <th scope="col">Email</th>
+                <th scope="col">Status</th>
+            </thead>
+            <tbody>
+                {this.state.usersNonVerifies.map(opt=> 
+                <div>
+                    <td>{opt.pseudo}</td>
+                    <td>{opt.email}</td>
+                    <td><button onClick={() => this.validerUser(opt._id, opt.pseudo, opt.email, opt.mdp)}>Valider</button></td>
+                    <td><button onClick={() => this.validerUserAdmin(opt._id, opt.pseudo, opt.email, opt.mdp)}>Valider comme Admin</button></td>
+                </div>)}
+            </tbody>
+        </table>
+
+            
+        </div>)
+    }
+}
+
+export default UserNonVerifies
