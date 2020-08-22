@@ -11,9 +11,9 @@ class UserNonVerifies extends Component{
     
     validerUserBD = async(pseudo, email, mdp, admin, imgg) => {
         await axios.post("http://localhost:8080/users",{
-            pseudo  : pseudo, 
+            username  : pseudo, 
             email   : email, 
-            mdp     : mdp, 
+            password   : mdp, 
             admin   : admin,
             imageURL: imgg
         })
@@ -46,7 +46,7 @@ class UserNonVerifies extends Component{
 
     render(){
         return (<div>
-        <h1>Utilisateur Non vérifiées</h1>
+        <h1>Utilisateur Non vérifiés</h1>
         
         <table class="table">
             <thead class="thead-dark">

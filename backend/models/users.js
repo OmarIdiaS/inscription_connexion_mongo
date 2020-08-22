@@ -1,14 +1,14 @@
 var mongoose = require("mongoose")
 
 
-var userSchema = new mongoose.Schema({
-    pseudo: {
+var user = new mongoose.Schema({
+    username: {
         type: String
     },
     email : {
         type : String
     }, 
-    mdp:{
+    password:{
         type: String
     }, 
     admin: {
@@ -20,4 +20,4 @@ var userSchema = new mongoose.Schema({
 
 }, {timestamps: true}); 
 
-module.exports = mongoose.model('user', userSchema)
+module.exports = mongoose.model('User', user)

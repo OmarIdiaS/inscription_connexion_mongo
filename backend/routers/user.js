@@ -14,9 +14,9 @@ router.get('/', async(req, res) => {
 
 router.post("/", async(req, res) => {
     const user = new route({
-        pseudo: req.body.pseudo, 
+        username: req.body.username, 
         email : req.body.email, 
-        mdp: req.body.mdp, 
+        password: req.body.password, 
         admin: req.body.admin,
         imageURL : req.body.imageURL
     })
@@ -32,6 +32,11 @@ router.post("/", async(req, res) => {
 
 router.delete("/:id", async(req, res) => {
     const user = await route.deleteOne({_id : req.params.id})
+    res.json(user)
+})
+
+router.delete("/all", async(req,res) => {
+    const user = await route.deleteMany({})
     res.json(user)
 })
 

@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
+
 class UserVerifies extends Component{
 
     state = {
         users: [],
     }
+
 
     recupererUsers = async() => {
         const noms = await axios.get("http://localhost:8080/users")

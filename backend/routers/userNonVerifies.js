@@ -3,6 +3,7 @@ const router = express.Router()
 const route = require("../models/userNonVerifies")
 const multer = require("multer")
 var   fs  = require("fs")
+var bcrypt = require("bcryptjs")
 
 
 
@@ -40,11 +41,12 @@ router.delete("/:id", async(req, res) => {
 router.post("/", upload.single('files'), async(req, res) => {
     
     const valeurBody = JSON.parse(req.body.state)
+    const hashedPassword = await bcrypt.hash(valeurBody.mdp, 10);
     const user = new route({
         imageURL: req.file.filename,
         pseudo: valeurBody.pseudo, 
         email : valeurBody.email, 
-        mdp: valeurBody.mdp, 
+        mdp: hashedPassword, 
         admin: req.body.admin,
        
     })
