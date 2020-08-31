@@ -7,10 +7,12 @@ class Connexion extends Component{
     state = {
         email : '', 
         mdp   : '',
-        validerConnexion : false
+        validerConnexion : false,
+        resultLogin : ''
     }
     
     login = () => {
+        
         axios({
           method: "POST",
           data: {
@@ -19,10 +21,11 @@ class Connexion extends Component{
           },
           withCredentials: true,
           url: "http://localhost:8080/login",
-        }).then(
-            
-            
-            );
+        }).then((res) => res.data === "No User Exists" ? (alert("L'un de vos identifiants est incorrect")) : (alert("Connexion resolu")))
+        .catch((res) => console.log(res));
+
+        
+        
       }
 
 
@@ -39,8 +42,8 @@ class Connexion extends Component{
         return(
             <div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Adresse Mail</label>
-                    <input type="email" onChange={this.handleEmail} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                    <label for="exampleInputEmail1">Pseudo</label>
+                    <input type="text" onChange={this.handleEmail} class="form-control"   placeholder="Pseudo" />
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Mot de passe</label>

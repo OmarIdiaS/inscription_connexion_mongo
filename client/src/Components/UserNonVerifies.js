@@ -9,6 +9,7 @@ class UserNonVerifies extends Component{
     }
 
     
+    
     validerUserBD = async(pseudo, email, mdp, admin, imgg) => {
         await axios.post("http://localhost:8080/users",{
             username  : pseudo, 
@@ -31,12 +32,14 @@ class UserNonVerifies extends Component{
         console.log("Bonjour")
         await axios.delete("http://localhost:8080/usersNonVerifies/" + id)
         this.validerUserBD(pseudo, email, mdp, false, imgg)
+        this.recupererUserNonVerifies()
     }
 
     validerUserAdmin = async(id, pseudo, email, mdp, imgg) => {
         console.log("Bonjour")
         await axios.delete("http://localhost:8080/usersNonVerifies/" + id)
         this.validerUserBD(pseudo, email, mdp, true, imgg)
+        this.recupererUserNonVerifies()
     }
     componentDidMount(){
         this.recupererUserNonVerifies()

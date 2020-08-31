@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom"
 import userNonVerifies from './Components/UserNonVerifies';
 import userVerifies from './Components/UserVerifies'
 import connexion from "./Components/Connexion"
+import Profile from "./Components/Profile"
+
 class App extends Component {
 
   state = {
@@ -70,6 +72,7 @@ class App extends Component {
       <Router>
         <Route path="/connexion" component={connexion}></Route>
         <Route path="/inscription" component={Inscription} />
+        <Route path="/profile" component={props => <Profile {...props} username={this.state.data.username} image={this.state.data.imageURL} email={this.state.data.email} />} />
         {this.state.data.admin == true ? <Route path="/users" component={userVerifies} /> : null}
         {this.state.data.admin == true ? <Route path="/usersNonVerifies" component={userNonVerifies} /> : null}
       </Router>

@@ -8,6 +8,9 @@ class UserVerifies extends Component{
         users: [],
     }
 
+    componentDidUpdate = () => {
+        this.recupererUsers()
+    }
 
     recupererUsers = async() => {
         const noms = await axios.get("http://localhost:8080/users")
